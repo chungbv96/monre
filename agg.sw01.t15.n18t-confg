@@ -1,0 +1,232 @@
+
+!
+version 12.2
+no service pad
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+service sequence-numbers
+!
+hostname AGG.SW01.T15.N18T
+!
+boot-start-marker
+boot-end-marker
+!
+logging console warnings
+enable secret 5 $1$rI5a$AdoZxj/s.7euJLx2Te0eL/
+!
+username csht secret 5 $1$XfXX$XJyuSkwZDoQiAj8cFpGYW0
+!
+!
+aaa new-model
+!
+!
+aaa authentication login default group radius local
+aaa authentication login User-VPN group radius local
+aaa authentication enable default line
+aaa authorization exec default group radius local 
+!
+!
+!
+aaa session-id common
+switch 1 provision ws-c3750x-24
+system mtu routing 1500
+ip routing
+!
+!
+ip domain-name N18T
+!
+!
+crypto pki trustpoint TP-self-signed-4049643392
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-4049643392
+ revocation-check none
+ rsakeypair TP-self-signed-4049643392
+!
+!
+crypto pki certificate chain TP-self-signed-4049643392
+ certificate self-signed 01
+  3082024E 308201B7 A0030201 02020101 300D0609 2A864886 F70D0101 04050030 
+  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 34303439 36343333 3932301E 170D3933 30333031 30303031 
+  31365A17 0D323030 31303130 30303030 305A3031 312F302D 06035504 03132649 
+  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D34 30343936 
+  34333339 3230819F 300D0609 2A864886 F70D0101 01050003 818D0030 81890281 
+  8100B988 697CA793 F5E7C260 7F120494 C0367CA0 09F9CBB8 9E0B284A B52D4D80 
+  447349D1 8A433A1C 2535C924 1BB018D2 AB2290F1 A084F377 FCD646C0 0B10CBD7 
+  D6784CAD C9B1DBCD 5FA4E82D 918310DE 220D1BA1 0BCE214F F4548703 D7E8FE36 
+  44AC71B7 D3765968 FA3B78B2 8519BB8E 7B7A04DF FF64FDAB E8A706EA 227DE75C 
+  C7A50203 010001A3 76307430 0F060355 1D130101 FF040530 030101FF 30210603 
+  551D1104 1A301882 16414747 2E535730 312E5431 352E4E31 38542E4E 31385430 
+  1F060355 1D230418 30168014 82054A21 281882CD 1ED97E14 6B230C55 F8900E4B 
+  301D0603 551D0E04 16041482 054A2128 1882CD1E D97E146B 230C55F8 900E4B30 
+  0D06092A 864886F7 0D010104 05000381 81007EBC 6223CA61 1F38005D 93507A3E 
+  902919F2 47A4017C D6BE9AFF 2B748D10 2D9ED674 20F68A44 AED69B37 8A805EAC 
+  9947EE36 C35EB4A3 0CB28A51 49F12E21 CABFA9BE 9BF397D8 33A8438D D66AB6D2 
+  E2901483 B0D65B06 CD087190 9A23FA7F 0619E852 582718E4 324D32C0 490026B8 
+  CD179507 73970875 9F749B94 A0840659 723A
+  quit
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+!
+!
+!
+vlan internal allocation policy ascending
+!
+!
+!
+!
+interface FastEthernet0
+ no ip address
+ no ip route-cache cef
+ no ip route-cache
+ no ip mroute-cache
+ shutdown
+!
+interface GigabitEthernet1/0/1
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/2
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/3
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/4
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/5
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/6
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/7
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/8
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/9
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/10
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/11
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/12
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/13
+!
+interface GigabitEthernet1/0/14
+!
+interface GigabitEthernet1/0/15
+!
+interface GigabitEthernet1/0/16
+!
+interface GigabitEthernet1/0/17
+!
+interface GigabitEthernet1/0/18
+!
+interface GigabitEthernet1/0/19
+!
+interface GigabitEthernet1/0/20
+!
+interface GigabitEthernet1/0/21
+!
+interface GigabitEthernet1/0/22
+!
+interface GigabitEthernet1/0/23
+!
+interface GigabitEthernet1/0/24
+!
+interface GigabitEthernet1/1/1
+!
+interface GigabitEthernet1/1/2
+!
+interface GigabitEthernet1/1/3
+!
+interface GigabitEthernet1/1/4
+!
+interface TenGigabitEthernet1/1/1
+ no switchport
+ ip address 10.1.25.82 255.255.255.252
+!
+interface TenGigabitEthernet1/1/2
+ no switchport
+ ip address 10.1.25.86 255.255.255.252
+!
+interface Vlan1
+ ip address 10.1.16.241 255.255.255.240
+!
+interface Vlan108
+ ip address 10.1.108.1 255.255.255.0
+ ip helper-address 10.1.10.15
+ ip helper-address 10.1.10.14
+!
+interface Vlan109
+ ip address 10.1.109.1 255.255.255.0
+ ip helper-address 10.1.10.15
+ ip helper-address 10.1.10.14
+!
+router ospf 1
+ log-adjacency-changes
+ network 10.1.16.240 0.0.0.15 area 0
+ network 10.1.25.80 0.0.0.3 area 0
+ network 10.1.25.84 0.0.0.3 area 0
+ network 10.1.108.0 0.0.0.255 area 0
+ network 10.1.109.0 0.0.0.255 area 0
+!
+ip classless
+!
+ip http server
+ip http secure-server
+!
+ip sla enable reaction-alerts
+logging trap warnings
+logging facility syslog
+logging source-interface TenGigabitEthernet1/1/1
+logging 10.1.10.108
+access-list 10 permit 10.1.10.61
+access-list 10 permit 10.151.128.73
+access-list 10 permit 10.1.15.92
+access-list 10 permit 10.1.12.125
+access-list 10 permit 10.151.138.154
+access-list 10 deny   any
+access-list 11 permit 10.1.15.100
+access-list 11 permit 10.1.88.0 0.0.0.255
+access-list 11 permit 10.1.12.0 0.0.0.255
+access-list 11 deny   any
+!
+snmp-server community public RO 10
+radius-server host 10.1.16.6 auth-port 1645 acct-port 1646 key btnmt
+!
+!
+line con 0
+ password cisco@123
+line vty 0 4
+ access-class 11 in
+ password cisco@123
+ transport input ssh
+line vty 5 15
+ access-class 11 in
+ password cisco@123
+ transport input ssh
+!
+end

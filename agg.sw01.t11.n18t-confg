@@ -1,0 +1,238 @@
+
+!
+version 12.2
+no service pad
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+service sequence-numbers
+!
+hostname AGG.SW01.T11.N18T
+!
+boot-start-marker
+boot-end-marker
+!
+logging count
+logging queue-limit trap 500
+logging buffered notifications
+logging console informational
+logging monitor notifications
+logging cns-events notifications
+enable secret 5 $1$bn2c$/jzQ2Wtmbpo3208McCCXE/
+!
+username csht secret 5 $1$H1NL$HBQMKCrK2Qswn2LIihnkW1
+username cisco privilege 15 password 0 cisco@123
+!
+!
+aaa new-model
+!
+!
+aaa authentication login default group radius local
+aaa authentication login User-VPN group radius local
+aaa authentication enable default line
+aaa authorization exec default group radius local 
+!
+!
+!
+aaa session-id common
+switch 1 provision ws-c3750x-24
+system mtu routing 1500
+ip routing
+!
+!
+ip domain-name N18T
+login on-failure log
+login on-success log
+!
+!
+crypto pki trustpoint TP-self-signed-4049797632
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-4049797632
+ revocation-check none
+ rsakeypair TP-self-signed-4049797632
+!
+!
+crypto pki certificate chain TP-self-signed-4049797632
+ certificate self-signed 01
+  3082024E 308201B7 A0030201 02020101 300D0609 2A864886 F70D0101 04050030 
+  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 34303439 37393736 3332301E 170D3933 30333031 30303031 
+  31355A17 0D323030 31303130 30303030 305A3031 312F302D 06035504 03132649 
+  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D34 30343937 
+  39373633 3230819F 300D0609 2A864886 F70D0101 01050003 818D0030 81890281 
+  8100A344 D63482B8 D3CAB1AD 18E1D6EE E448ED17 4F7C641E 1D5FD89E 3511F3AA 
+  15C6EBDF 6CAE2D41 D4699437 FEBC99C1 BEB12597 F1ABEFED 3B6FB603 EF40DBEA 
+  58452A3E 9D194EF8 FB2260C2 53AB61DC 0915D2D5 7BC1B9DC 068A24EC 4D4AFA2D 
+  6813DB01 797CD289 3377BAB6 E215940C 07E3DBC1 A9002809 A53BE298 01132BE8 
+  32010203 010001A3 76307430 0F060355 1D130101 FF040530 030101FF 30210603 
+  551D1104 1A301882 16414747 2E535730 312E5431 312E4E31 38542E4E 31385430 
+  1F060355 1D230418 30168014 994B57E6 24C8B11C 99F54E1B 33DA1DD1 8AE4799D 
+  301D0603 551D0E04 16041499 4B57E624 C8B11C99 F54E1B33 DA1DD18A E4799D30 
+  0D06092A 864886F7 0D010104 05000381 810023B0 0EDE7551 0A731345 6A2D4833 
+  6244E707 540BEEBD 53D7C791 75AD0280 8E558683 1E186AFC E32390B8 E69172FE 
+  0F814454 7BBCF474 71506F6B 626FFEBF 414D1122 8462135F FACB3319 0DA26A7D 
+  EDE44C67 F53412EB C6720201 E7894919 07BA52F9 2CA0985A EEB6ACC1 C3BF8145 
+  1B2493D6 9BCF86BD 9217C679 6F253092 690F
+  quit
+archive
+ log config
+  logging enable
+  notify syslog contenttype plaintext
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+!
+!
+!
+vlan internal allocation policy ascending
+!
+!
+!
+!
+interface FastEthernet0
+ no ip address
+ no ip route-cache cef
+ no ip route-cache
+ no ip mroute-cache
+!
+interface GigabitEthernet1/0/1
+!
+interface GigabitEthernet1/0/2
+!
+interface GigabitEthernet1/0/3
+!
+interface GigabitEthernet1/0/4
+!
+interface GigabitEthernet1/0/5
+!
+interface GigabitEthernet1/0/6
+!
+interface GigabitEthernet1/0/7
+!
+interface GigabitEthernet1/0/8
+!
+interface GigabitEthernet1/0/9
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport nonegotiate
+!
+interface GigabitEthernet1/0/10
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport nonegotiate
+!
+interface GigabitEthernet1/0/11
+!
+interface GigabitEthernet1/0/12
+!
+interface GigabitEthernet1/0/13
+!
+interface GigabitEthernet1/0/14
+!
+interface GigabitEthernet1/0/15
+!
+interface GigabitEthernet1/0/16
+!
+interface GigabitEthernet1/0/17
+!
+interface GigabitEthernet1/0/18
+!
+interface GigabitEthernet1/0/19
+!
+interface GigabitEthernet1/0/20
+!
+interface GigabitEthernet1/0/21
+!
+interface GigabitEthernet1/0/22
+!
+interface GigabitEthernet1/0/23
+!
+interface GigabitEthernet1/0/24
+!
+interface GigabitEthernet1/1/1
+!
+interface GigabitEthernet1/1/2
+!
+interface GigabitEthernet1/1/3
+!
+interface GigabitEthernet1/1/4
+!
+interface TenGigabitEthernet1/1/1
+ no switchport
+ ip address 10.1.25.50 255.255.255.252
+!
+interface TenGigabitEthernet1/1/2
+ no switchport
+ ip address 10.1.25.54 255.255.255.252
+!
+interface Vlan1
+ ip address 10.1.16.193 255.255.255.240
+!
+interface Vlan17
+ ip address 10.1.17.1 255.255.255.0
+ ip helper-address 10.1.10.14
+ ip helper-address 10.1.10.15
+!
+interface Vlan22
+ ip address 10.1.22.1 255.255.255.0
+ ip helper-address 10.1.10.15
+ ip helper-address 10.1.10.14
+!
+interface Vlan26
+ ip address 10.1.26.1 255.255.255.0
+ ip helper-address 10.1.10.14
+ ip helper-address 10.1.10.15
+!
+router ospf 1
+ log-adjacency-changes
+ network 10.1.16.192 0.0.0.15 area 0
+ network 10.1.17.0 0.0.0.255 area 0
+ network 10.1.22.0 0.0.0.255 area 0
+ network 10.1.25.48 0.0.0.3 area 0
+ network 10.1.25.52 0.0.0.3 area 0
+ network 10.1.26.0 0.0.0.255 area 0
+!
+ip classless
+!
+ip http server
+ip http secure-server
+!
+ip sla enable reaction-alerts
+logging history size 200
+logging history notifications
+logging origin-id hostname
+logging facility syslog
+logging source-interface TenGigabitEthernet1/1/1
+logging host 10.1.12.81 session-id hostname
+logging 10.1.10.108
+access-list 10 permit 10.1.10.61
+access-list 10 permit 10.151.128.73
+access-list 10 permit 10.1.15.92
+access-list 10 permit 10.1.12.125
+access-list 10 permit 10.151.138.154
+access-list 10 deny   any
+access-list 11 permit 10.1.15.100
+access-list 11 permit 10.1.88.0 0.0.0.255
+access-list 11 permit 10.1.12.0 0.0.0.255
+access-list 11 deny   any
+!
+snmp-server community public RO 10
+radius-server host 10.1.16.6 auth-port 1645 acct-port 1646 key btnmt
+!
+!
+line con 0
+ password cisco@123
+line vty 0 3
+ access-class 11 in
+ password cisco@123
+ transport input ssh
+line vty 4
+ access-class 11 in
+ password cisco@123
+ transport input telnet
+line vty 5 15
+ access-class 11 in
+ password cisco@123
+ transport input ssh
+!
+end
